@@ -1,0 +1,109 @@
+#include <iostream>
+#define MAX 5  
+using namespace std;
+
+int stackArr[MAX];
+int top = -1;
+
+void push(int x);
+void pop();
+bool isEmpty();
+bool isFull();
+void display();
+void peek();
+
+int main() {
+    int choice, value;
+
+        cout << "--- Stack Menu ---\n";
+        cout << "1. Push\n";
+        cout << "2. Pop\n";
+        cout << "3. isEmpty\n";
+        cout << "4. isFull\n";
+        cout << "5. Display\n";
+        cout << "6. Peek\n";
+        cout << "7. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter value to push: ";
+            cin >> value;
+            push(value);
+            break;
+        case 2:
+            pop();
+            break;
+        case 3:
+            if (isEmpty())
+                cout << "Stack is Empty\n";
+            else
+                cout << "Stack is NOT Empty\n";
+            break;
+        case 4:
+            if (isFull())
+                cout << "Stack is Full\n";
+            else
+                cout << "Stack is NOT Full\n";
+            break;
+        case 5:
+            display();
+            break;
+        case 6:
+            peek();
+            break;
+        case 7:
+            exit(0);
+        default:
+            cout << "Invalid choice\n";
+        }
+    
+    return 0;
+}
+
+void push(int x) {
+    if (isFull()) {
+        cout << "Stack Overflow! Cannot push " << x << endl;
+    } else {
+        stackArr[++top] = x;
+        cout << x << " pushed into stack.\n";
+    }
+}
+
+void pop() {
+    if (isEmpty()) {
+        cout << "Stack Underflow! Nothing to pop.\n";
+    } else {
+        cout << "Popped element: " << stackArr[top--] << endl;
+    }
+}
+
+bool isEmpty() {
+    return (top == -1);
+}
+
+bool isFull() {
+    return (top == MAX - 1);
+}
+
+void display() {
+    if (isEmpty()) {
+        cout << "Stack is Empty.\n";
+    } else {
+        cout << "Stack elements: ";
+        for (int i = top; i >= 0; i--) {
+            cout << stackArr[i] << " ";
+        }
+        cout << endl;
+    }
+}
+
+
+void peek() {
+    if (isEmpty()) {
+        cout << "Stack is Empty, nothing to peek.\n";
+    } else {
+        cout << "Top element is: " << stackArr[top] << endl;
+    }
+}
