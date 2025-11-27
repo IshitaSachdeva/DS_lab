@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    char data;
+    Node* next;
+    Node* prev;
+
+    Node(char ch) {
+        data = ch;
+        next = prev = NULL;
+    }
+};
+
+class DoublyLinkedList {
+public:
+    Node* head;
+
+    DoublyLinkedList() { head = NULL; }
+
+    void insert(char ch) {
+        Node* temp = new Node(ch);
+
+        if (head == NULL) {
+            head = temp;
+            return;
+        }
+
+        Node* curr = head;
+        while (curr->next != NULL)
+            curr = curr->next;
+
+        curr->next = temp;
+        temp->prev = curr;
+    }
+
+    bool isPalindrome() {
+        if (head == NULL || head->next == NULL)
+            return true;
+
+       
+        Node* left = head;
+        Node* right = head;
+        while (right->next != NULL)
+            right = right->next;
+
+       
+        while (left != right && right->next != left) {
+            if (left->data != right->data)
+                return false;
+
+            left = left->next;
+            right = right->prev;
+        }
+
+        return true;
+    }
+};
+
+int main() {
+    DoublyLinkedList dll;
+
+
+    dll.insert('R');
+    dll.insert('A');
+    dll.insert('C');
+    dll.insert('E');
+    dll.insert('C');
+    dll.insert('A');
+    dll.insert('R');
+
+    if (dll.isPalindrome())
+        cout << "The Doubly Linked List is a palindrome." << endl;
+    else
+        cout << "The Doubly Linked List is NOT a palindrome." << endl;
+
+    return 0;
+}
