@@ -1,0 +1,121 @@
+#include <iostream>
+using namespace std;
+
+
+
+class DNode {
+public:
+    int data;
+    DNode* next;
+    DNode* prev;
+
+    DNode(int val) {
+        data = val;
+        next = prev = NULL;
+    }
+};
+
+class DoublyLinkedList {
+public:
+    DNode* head;
+
+    DoublyLinkedList() { head = NULL; }
+
+    void insert(int val) {
+        DNode* temp = new DNode(val);
+        if (head == NULL) {
+            head = temp;
+            return;
+        }
+        DNode* curr = head;
+        while (curr->next != NULL)
+            curr = curr->next;
+
+        curr->next = temp;
+        temp->prev = curr;
+    }
+
+    int getSize() {
+        int count = 0;
+        DNode* curr = head;
+        while (curr != NULL) {
+            count++;
+            curr = curr->next;
+        }
+        return count;
+    }
+};
+
+
+
+class CNode {
+public:
+    int data;
+    CNode* next;
+
+    CNode(int val) {
+        data = val;
+        next = NULL;
+    }
+};
+
+class CircularLinkedList {
+public:
+    CNode* head;
+
+    CircularLinkedList() { head = NULL; }
+
+    void insert(int val) {
+        CNode* temp = new CNode(val);
+        if (head == NULL) {
+            head = temp;
+            temp->next = head;
+            return;
+        }
+
+        CNode* curr = head;
+        while (curr->next != head)
+            curr = curr->next;
+
+        curr->next = temp;
+        temp->next = head;
+    }
+
+    int getSize() {
+        if (head == NULL) return 0;
+
+        int count = 0;
+        CNode* curr = head;
+
+        do {
+            count++;
+            curr = curr->next;
+        } while (curr != head);
+
+        return count;
+    }
+};
+
+
+
+int main() {
+
+   
+    DoublyLinkedList dll;
+    dll.insert(10);
+    dll.insert(20);
+    dll.insert(30);
+
+    cout << "Size of Doubly Linked List: " << dll.getSize() << endl;
+
+  
+    CircularLinkedList cll;
+    cll.insert(5);
+    cll.insert(15);
+    cll.insert(25);
+    cll.insert(35);
+
+    cout << "Size of Circular Linked List: " << cll.getSize() << endl;
+
+    return 0;
+}
